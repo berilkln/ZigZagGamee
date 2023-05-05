@@ -766,6 +766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1.5
+  scoreText: {fileID: 733300707}
   groundSpawner: {fileID: 12349228}
   hizlanmaZorlugu: 0.05
 --- !u!1 &906628632

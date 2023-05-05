@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] Text scoreText;
     Vector3 yon = Vector3.left;
     public GroundSpawner groundSpawner;
     public static bool isDead = false;
     public float hizlanmaZorlugu;
+    float score = 0f;
+    float artisMiktari = 1f;
+    
 
 
 
@@ -45,6 +49,9 @@ public class PlayerController : MonoBehaviour
         Vector3 hareket = yon * speed * Time.deltaTime; //objenin hareket değeri.
         speed += Time.deltaTime * hizlanmaZorlugu;
         transform.position += hareket; //hareket değeri sürekli pozisyona eklenir.
+
+        score +=artisMiktari * speed * Time.deltaTime; //float değeri int yaptık parantez içerisine alıp
+        scoreText.text ="Score: "+ ((int) score).ToString();
     }
 
     private void OnCollisionExit(Collision collision)
