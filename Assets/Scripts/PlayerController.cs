@@ -7,12 +7,13 @@ public class PlayerController : MonoBehaviour
     [Header("Out Component")]
     [SerializeField] float speed;
     [SerializeField] Text scoreText,bestScoreTest;
+    [SerializeField]
     GameObject restartPanel,playGamePanel;
 
 
     [Header("Public Variable")]
     public GroundSpawner groundSpawner;
-    public static bool isDead = false;
+    public static bool isDead = true;
     public float hizlanmaZorlugu;
 
 
@@ -25,6 +26,11 @@ public class PlayerController : MonoBehaviour
     
     private void Start()
     {
+        if (RestartGame.isRestart) //!!
+        {
+            isDead = false;
+            playGamePanel.SetActive(false);
+        }
         bestScore = PlayerPrefs.GetInt("BestScore");   //yapılan en iyi skoru hafızada tutar.
         bestScoreTest.text = "Best: " + bestScore.ToString();
     }
@@ -52,7 +58,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(transform.position.y < 0.1f)
+        if(transform.position.y < 0.1f) //Karakterin öldüğü kısım
         {
             isDead = true;
             if (bestScore < score)
@@ -61,6 +67,7 @@ public class PlayerController : MonoBehaviour
                 PlayerPrefs.SetInt("BestScore", bestScore);
 
             }
+            restartPanel.SetActive(true);
             Destroy(this.gameObject,3f);
 
 
@@ -102,7 +109,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
+    public void PlayGame()
+    {
+        isDead = false;
+        playGamePanel.SetActive(false);
+    }
 
 
 
