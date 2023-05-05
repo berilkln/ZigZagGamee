@@ -16,6 +16,10 @@ public class FollowCamera : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (PlayerController.isDead) //takip işlemini sonlandırır.
+        {
+            return;
+        }
         transform.position = target.transform.position + distance;
     }
 }
