@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     Vector3 yon = Vector3.left;
     public GroundSpawner groundSpawner;
     public static bool isDead = false;
+    public float hizlanmaZorlugu;
 
 
 
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 hareket = yon * speed * Time.deltaTime; //objenin hareket değeri.
+        speed += Time.deltaTime * hizlanmaZorlugu;
         transform.position += hareket; //hareket değeri sürekli pozisyona eklenir.
     }
 
