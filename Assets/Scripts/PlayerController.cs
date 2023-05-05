@@ -4,16 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
+    [Header("Out Component")]
     [SerializeField] float speed;
     [SerializeField] Text scoreText,bestScoreTest;
-    Vector3 yon = Vector3.left;
+    GameObject restartPanel,playGamePanel;
+
+
+    [Header("Public Variable")]
     public GroundSpawner groundSpawner;
     public static bool isDead = false;
     public float hizlanmaZorlugu;
+
+
+
+    Vector3 yon = Vector3.left;
     float score = 0f;
     float artisMiktari = 1f;
     int bestScore = 0;
-
+    
+    
     private void Start()
     {
         bestScore = PlayerPrefs.GetInt("BestScore");   //yapılan en iyi skoru hafızada tutar.
