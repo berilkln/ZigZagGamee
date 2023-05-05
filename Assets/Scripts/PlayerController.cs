@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed;
 
     Vector3 yon = Vector3.left;
+    public GroundSpawner groundSpawner;
+
 
     private void Update()
     {
@@ -27,6 +29,14 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 hareket = yon * speed * Time.deltaTime; //objenin hareket değeri.
         transform.position += hareket; //hareket değeri sürekli pozisyona eklenir.
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Zemin"))
+        {
+            groundSpawner.ZeminOlustur();
+        }
     }
 
 
