@@ -5,10 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class RestartGame : MonoBehaviour
 {
-    private void Start()
-    {
-        
-    }
+    
 
     public static bool isRestart = false;
     public void restartGame()

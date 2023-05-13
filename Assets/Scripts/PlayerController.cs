@@ -6,9 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Out Component")]
     [SerializeField] float speed;
-    [SerializeField] Text scoreText,bestScoreTest,bestScorePanel;
-    [SerializeField]
-    GameObject restartPanel,playGamePanel;
+    [SerializeField] Text scoreText,bestScoreTest,bestScoreStart, bestScoreRestart;
+    [SerializeField] GameObject restartPanel,playGamePanel;
+    
 
 
     [Header("Public Variable")]
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     Vector3 yon = Vector3.left;
     float score = 0f;
-    float artisMiktari = 1f;
+    //float artisMiktari = 1f;
     int bestScore = 0;
     
     
@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
         }
         bestScore = PlayerPrefs.GetInt("BestScore");   //yapılan en iyi skoru hafızada tutar.
         bestScoreTest.text = "Best: " + bestScore.ToString();
+        bestScoreStart.text = "Best: " + bestScore.ToString();
+        bestScoreRestart.text = "Best: " + bestScore.ToString();
     }
 
 
@@ -65,16 +67,19 @@ public class PlayerController : MonoBehaviour
             {
                 bestScore = (int)score;
                 PlayerPrefs.SetInt("BestScore", bestScore);
+                
+               
 
             }
-            //bestScore = PlayerPrefs.GetInt("BestScore");
-            //bestScorePanel.text = "Best: " + bestScore.ToString();
-            restartPanel.SetActive(true);
-            
+            restartPanel.SetActive(true); 
             Destroy(this.gameObject,3f);
 
-
         }
+
+        
+
+
+
     }
 
     private void FixedUpdate()
@@ -85,12 +90,22 @@ public class PlayerController : MonoBehaviour
             return;
         }
         Vector3 hareket = yon * speed * Time.deltaTime; //objenin hareket değeri.
-        speed += Time.deltaTime * hizlanmaZorlugu;
         transform.position += hareket; //hareket değeri sürekli pozisyona eklenir.
+        speed += Time.deltaTime * hizlanmaZorlugu;
+        //score += artisMiktari * speed * Time.deltaTime; //float değeri int yaptık parantez içerisine alıp
+        scoreText.text = "Score: " + ((int)score).ToString();
 
-        score +=artisMiktari * speed * Time.deltaTime; //float değeri int yaptık parantez içerisine alıp
-        scoreText.text ="Score: "+ ((int) score).ToString();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            score++;
+            Destroy(other.gameObject);
+        }
+    }
+
 
     private void OnCollisionExit(Collision collision)
     {
@@ -100,6 +115,7 @@ public class PlayerController : MonoBehaviour
             groundSpawner.ZeminOlustur();
         }
     }
+    
 
     IEnumerator YokEt(GameObject zemin)
     {
