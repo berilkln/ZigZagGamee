@@ -68,8 +68,6 @@ public class PlayerController : MonoBehaviour
                 bestScore = (int)score;
                 PlayerPrefs.SetInt("BestScore", bestScore);
                 
-               
-
             }
             restartPanel.SetActive(true); 
             Destroy(this.gameObject,3f);
